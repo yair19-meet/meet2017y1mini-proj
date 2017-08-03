@@ -94,6 +94,7 @@ def make_food():
     global SIZE_X
     global SIZE_Y
     global SQUARE_SIZE
+
     
     min_x = -int(SIZE_X/2/SQUARE_SIZE) + 1
     max_x = int(SIZE_X/2/SQUARE_SIZE) - 1
@@ -102,6 +103,7 @@ def make_food():
 
     food_x = random.randint(min_x, max_x) * SQUARE_SIZE
     food_y = random.randint(min_y, max_y) * SQUARE_SIZE
+
 
     food.goto(food_x, food_y)
     NewPos = food.pos()
@@ -115,6 +117,8 @@ def make_food():
 
 
 def move_snake():
+   
+    global pos_list
     my_pos = snake.pos()
     x_pos = my_pos[0]
     y_pos = my_pos[1]
@@ -149,6 +153,11 @@ def move_snake():
     elif direction == DOWN:
         snake.goto(x_pos, y_pos - SQUARE_SIZE)
 
+    if snake.pos() in pos_list:
+        quit()
+        
+        
+
     turtle.ontimer(move_snake, TIME_STEP)
 
     
@@ -164,7 +173,9 @@ def move_snake():
         food.clearstamp(food_stamps[food_ind])
         food_pos.pop(food_ind)
         food_stamps.pop(food_ind)
+        
         print("You have eaten the food!")
+        make_food()
         
 
     old_stamp = stamp_list.pop(0)
@@ -191,6 +202,12 @@ for this_food_pos in food_pos:
     food.goto(this_food_pos)
     f_stamp = food.stamp()
     food_stamps.append(f_stamp)
+    
+
+move_snake()
+
+
+
     
     
 
