@@ -144,14 +144,19 @@ def move_snake():
     elif direction == RIGHT:
         snake.goto(x_pos + SQUARE_SIZE, y_pos)
         print("You moved right!")
+        snake.fillcolor("green")
     elif direction == LEFT:
         snake.goto(x_pos - SQUARE_SIZE, y_pos)
         print('You moved left!')
+        snake.fillcolor("blue")
     elif direction == UP:
         snake.goto(x_pos, y_pos + SQUARE_SIZE)
         print("You moved up!")
+        snake.fillcolor("yellow")
     elif direction == DOWN:
         snake.goto(x_pos, y_pos - SQUARE_SIZE)
+        print("You moved Down!")
+        snake.fillcolor("red")
 
     if snake.pos() in pos_list:
         quit()
@@ -174,18 +179,19 @@ def move_snake():
         food_pos.pop(food_ind)
         food_stamps.pop(food_ind)
         
+        snake.fillcolor("white")
         print("You have eaten the food!")
         make_food()
         
 
-    old_stamp = stamp_list.pop(0)
-    snake.clearstamp(old_stamp)
-    pos_list.pop(0)
+    else:
+        old_stamp = stamp_list.pop(0)
+        snake.clearstamp(old_stamp)
+        pos_list.pop(0)
 
     
 
 
-    
 
 
 turtle.register_shape("trash.gif")
@@ -193,7 +199,7 @@ turtle.register_shape("trash.gif")
 food = turtle.clone()
 food.shape("trash.gif")
 
-food_pos = [(100, 100), (-100, 100), (-100, -100), (100, -100)]
+food_pos = []
 food_stamps = []
 
 food.hideturtle()
@@ -207,10 +213,11 @@ for this_food_pos in food_pos:
 move_snake()
 
 
-
+while len(food_pos) == 0:
+    make_food() 
     
     
-
+turtle.bgcolor("black")
 
 
 
